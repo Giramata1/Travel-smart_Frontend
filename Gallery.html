@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery –  Travel smart | Explore Rwanda by Bus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    
+    :root {
+      --green: #1a8c3e;
+      --green-dark: #136b2f;
+      --green-accent: #22a84e;
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 2px 8px rgba(26,140,62,0.10);
+      --shadow-md: 0 8px 32px rgba(26,140,62,0.15);
+      --shadow-lg: 0 20px 60px rgba(26,140,62,0.18);
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --bg-secondary: #f8fafb; --bg-card: #ffffff;
+      --text: #1e2e26; --text-muted: #4a6155; --border: #c5d5cb;
+      --nav-bg: #ffffff; --nav-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --input-bg: #ffffff; --green-light: #e8f5ed;
+    }
+    [data-theme="dark"] {
+      --bg: #0f1a13; --bg-secondary: #162019; --bg-card: #1a2b1f;
+      --text: #e8f5ed; --text-muted: #8ab89a; --border: #2e4a38;
+      --nav-bg: #111d15; --nav-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      --input-bg: #1e2f23; --green-light: #1a2e22;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+
+   
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg); display: flex; align-items: center;
+      justify-content: space-between; padding: 0 5%; height: 66px;
+      box-shadow: var(--nav-shadow); transition: background 0.3s;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.3rem;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 38px; height: 38px; background: var(--green);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
+    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      color: var(--text-muted); transition: color 0.2s; position: relative;
+    }
+    .nav-links a.active, .nav-links a:hover { color: var(--green); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--green); border-radius: 2px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+
+    
+    .theme-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--green-light); border: 1.5px solid var(--border);
+      border-radius: 100px; padding: 5px 12px;
+      cursor: pointer; transition: background 0.3s;
+      font-size: 0.8rem; font-weight: 600; color: var(--text-muted);
+    }
+    .theme-toggle:hover { border-color: var(--green); }
+    .toggle-track {
+      width: 36px; height: 20px; background: var(--border);
+      border-radius: 100px; position: relative; transition: background 0.3s;
+    }
+    [data-theme="dark"] .toggle-track { background: var(--green); }
+    .toggle-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: white; transition: transform 0.3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    [data-theme="dark"] .toggle-thumb { transform: translateX(16px); }
+
+    /* FOOTER (same as index) */
+    footer { background: #0a1410; color: rgba(255,255,255,0.7); padding: 50px 5% 28px; margin-top: 60px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .nav-logo { color: white; margin-bottom: 14px; display: inline-flex; }
+    .footer-brand p { font-size: 0.87rem; line-height: 1.7; max-width: 230px; }
+    .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; color: white; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--green-accent); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
+    .footer-bottom span { color: var(--green-accent); font-weight: 600; }
+
+   
+    .gallery-hero {
+      margin-top: 66px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      padding: 80px 5%;
+      text-align: center;
+      color: white;
+    }
+    .gallery-hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .gallery-hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .gallery-grid {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
+    }
+    .gallery-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .gallery-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .gallery-image {
+      width: 100%;
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      background-color: var(--green-light);
+      transition: transform 0.3s;
+    }
+    .gallery-card:hover .gallery-image {
+      transform: scale(1.02);
+    }
+    .gallery-info {
+      padding: 16px 20px 20px;
+    }
+    .gallery-info h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .gallery-info p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .location-badge {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    @media (max-width: 750px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-hero h1 { font-size: 2rem; }
+      .gallery-grid { gap: 20px; }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+
+<nav>
+  <a class="nav-logo" href="index.html">
+   
+    Travel smart
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="Routes.html">Routes</a></li>
+    <li><a href="Gallery.html" class="active">Gallery</a></li>
+    <li><a href="Contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+      <span id="theme-label">☀️ Light</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    </button>
+  </div>
+</nav>
+
+
+<div class="gallery-hero">
+  <h1>Explore Rwanda with Travel smart</h1>
+  <p>Discover the beauty of Rwanda – from lush hills to vibrant cities</p>
+</div>
+
+<div class="gallery-grid">
+  <!-- Cella -->
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('caption.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Cella</h3>
+      <p>Scenic landscapes and welcoming communities. A perfect stop along the Kigali–Huye route.</p>
+      <span class="location-badge"> Southern Province</span>
+    </div>
+  </div>
+
+ 
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('virunga.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Virunga</h3>
+      <p>Gateway to the Volcanoes National Park. Home to mountain gorillas and breathtaking hikes.</p>
+      <span class="location-badge"> Musanze District</span>
+    </div>
+  </div>
+
+ 
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('Visit-Rwanda-Kingfisher-Kayaking-1920x1079.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Lake Kivu</h3>
+      <p>Serene lakes and rolling hills. Ideal for nature lovers and photography enthusiasts.</p>
+      <span class="location-badge"> Western Rwanda</span>
+    </div>
+  </div>
+
+ 
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('Musanze.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Musanze</h3>
+      <p>The adventure capital of Rwanda. Explore caves, volcanoes, and vibrant local markets.</p>
+      <span class="location-badge"> Northern Province</span>
+    </div>
+  </div>
+
+  
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('1.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Musanze – Volcanoes</h3>
+      <p>Home to the famous Volcanoes National Park. Gorilla trekking and hiking trails.</p>
+      <span class="location-badge"> Musanze</span>
+    </div>
+  </div>
+
+ 
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('Bulera.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Musanze – Lake Bulera</h3>
+      <p>Stunning twin lakes with crystal clear water. Perfect for a relaxing getaway.</p>
+      <span class="location-badge"> Near Musanze</span>
+    </div>
+  </div>
+
+ 
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('Kigali.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Kigali</h3>
+      <p>Rwanda's vibrant capital. Clean streets, art galleries, and bustling nightlife.</p>
+      <span class="location-badge"> Kigali</span>
+    </div>
+  </div>
+
+  
+  <div class="gallery-card">
+    <div class="gallery-image" style="background-image: url('culture.jpg');"></div>
+    <div class="gallery-info">
+      <h3>Musanze</h3>
+      <p>Cultural hub with the National Museum, botanical gardens, and traditional crafts.</p>
+      <span class="location-badge"> Southern Province</span>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:white;"><path d="M3 11h18M5 17h14M6 3h12a2 2 0 012 2v13a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zM9 17v2m6-2v2M3 11V8l3-5h12l3 5v3"/></svg></div>Travel smart</a>
+      <p>Your fastest way to book bus tickets across Rwanda. Travel smart, travel safe.</p>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Bus Booking</a></li><li><a href="routes.html">Routes</a></li><li><a href="#">Group Travel</a></li><li><a href="#">Corporate</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span>Travel smart</span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    const label = document.getElementById('theme-label');
+    if (label) label.textContent = newTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+
+  
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const label = document.getElementById('theme-label');
+      if (label) label.textContent = savedTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+    }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Services – Travel smart | Bus Booking Across Rwanda</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+   
+    :root {
+      --green: #1a8c3e;
+      --green-dark: #136b2f;
+      --green-accent: #22a84e;
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 2px 8px rgba(26,140,62,0.10);
+      --shadow-md: 0 8px 32px rgba(26,140,62,0.15);
+      --shadow-lg: 0 20px 60px rgba(26,140,62,0.18);
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --bg-secondary: #f8fafb; --bg-card: #ffffff;
+      --text: #1e2e26; --text-muted: #4a6155; --border: #c5d5cb;
+      --nav-bg: #ffffff; --nav-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --input-bg: #ffffff; --green-light: #e8f5ed;
+    }
+    [data-theme="dark"] {
+      --bg: #0f1a13; --bg-secondary: #162019; --bg-card: #1a2b1f;
+      --text: #e8f5ed; --text-muted: #8ab89a; --border: #2e4a38;
+      --nav-bg: #111d15; --nav-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      --input-bg: #1e2f23; --green-light: #1a2e22;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+
+   
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg); display: flex; align-items: center;
+      justify-content: space-between; padding: 0 5%; height: 66px;
+      box-shadow: var(--nav-shadow); transition: background 0.3s;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.3rem;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 38px; height: 38px; background: var(--green);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
+    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      color: var(--text-muted); transition: color 0.2s; position: relative;
+    }
+    .nav-links a.active, .nav-links a:hover { color: var(--green); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--green); border-radius: 2px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+
+    
+    .theme-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--green-light); border: 1.5px solid var(--border);
+      border-radius: 100px; padding: 5px 12px;
+      cursor: pointer; transition: background 0.3s;
+      font-size: 0.8rem; font-weight: 600; color: var(--text-muted);
+    }
+    .theme-toggle:hover { border-color: var(--green); }
+    .toggle-track {
+      width: 36px; height: 20px; background: var(--border);
+      border-radius: 100px; position: relative; transition: background 0.3s;
+    }
+    [data-theme="dark"] .toggle-track { background: var(--green); }
+    .toggle-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: white; transition: transform 0.3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    [data-theme="dark"] .toggle-thumb { transform: translateX(16px); }
+
+   
+    footer { background: #0a1410; color: rgba(255,255,255,0.7); padding: 50px 5% 28px; margin-top: 60px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .nav-logo { color: white; margin-bottom: 14px; display: inline-flex; }
+    .footer-brand p { font-size: 0.87rem; line-height: 1.7; max-width: 230px; }
+    .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; color: white; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--green-accent); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
+    .footer-bottom span { color: var(--green-accent); font-weight: 600; }
+
+   
+    .services-hero {
+      margin-top: 66px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      padding: 80px 5%;
+      text-align: center;
+      color: white;
+    }
+    .services-hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .services-hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .services-grid {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border);
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .service-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .service-icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--green);
+      fill: none;
+      stroke-width: 1.8;
+    }
+    .service-card h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .service-card p {
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+    .cta-section {
+      background: var(--bg-secondary);
+      text-align: center;
+      padding: 60px 5%;
+    }
+    .cta-section h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .cta-button {
+      display: inline-block;
+      background: var(--green);
+      color: white;
+      padding: 14px 36px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-top: 20px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .cta-button:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+    }
+    @media (max-width: 750px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .services-hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    
+    Travel smart
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="Routes.html">Routes</a></li>
+    <li><a href="Gallery.html">Gallery</a></li>
+    <li><a href="Contact.html"></a>Contact</li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+      <span id="theme-label">☀️ Light</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    </button>
+  </div>
+</nav>
+
+
+<div class="services-hero">
+  <h1>Our Services</h1>
+  <p>Comfortable, reliable, and affordable travel solutions across Rwanda</p>
+</div>
+
+<div class="services-grid">
+  <div class="service-card">
+    <div class="service-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 11h18M5 17h14M6 3h12a2 2 0 012 2v13a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zM9 17v2m6-2v2M3 11V8l3-5h12l3 5v3"/></svg>
+    </div>
+    <h3>Express Bus Booking</h3>
+    <p>Book tickets instantly for routes between Kigali, Musanze, Huye, Rubavu, and other major cities. Real-time seat selection.</p>
+  </div>
+  <div class="service-card">
+    <div class="service-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <h3>Group & Corporate Travel</h3>
+    <p>Special discounts for groups, schools, and companies. Dedicated buses and flexible scheduling available.</p>
+  </div>
+  <div class="service-card">
+    <div class="service-icon">
+      <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+    </div>
+    <h3>VIP & Executive Coaches</h3>
+    <p>Travel in style with extra legroom, air conditioning, and onboard refreshments. Perfect for business trips.</p>
+  </div>
+  <div class="service-card">
+    <div class="service-icon">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    </div>
+    <h3>24/7 Customer Support</h3>
+    <p>Our dedicated team is available round the clock to assist with bookings, changes, and inquiries.</p>
+  </div>
+  <div class="service-card">
+    <div class="service-icon">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <h3>Station & Mobile Payment</h3>
+    <p>Pay with Mobile Money (MTN/Airtel), credit card, or cash at any of our agent locations nationwide.</p>
+  </div>
+  <div class="service-card">
+    <div class="service-icon">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <h3>E-Tickets & SMS Confirmation</h3>
+    <p>Receive your ticket instantly via email and SMS. No need to print – just show your code on your phone.</p>
+  </div>
+</div>
+
+<div class="cta-section">
+  <h2>Ready to travel with us?</h2>
+  <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">Book your next journey in seconds. Safe, reliable, and comfortable.</p>
+  <a href="index.html" class="cta-button">Book Now →</a>
+</div>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:white;"><path d="M3 11h18M5 17h14M6 3h12a2 2 0 012 2v13a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zM9 17v2m6-2v2M3 11V8l3-5h12l3 5v3"/></svg></div>Travel smart</a>
+      <p>Your fastest way to book bus tickets across Rwanda. Travel smart, travel safe.</p>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Bus Booking</a></li><li><a href="#">Routes</a></li><li><a href="#">Group Travel</a></li><li><a href="#">Corporate</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span>Travel smart</span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    const label = document.getElementById('theme-label');
+    if (label) label.textContent = newTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+
+
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const label = document.getElementById('theme-label');
+      if (label) label.textContent = savedTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+    }
+  })();
+</script>
+</body>
+</html>

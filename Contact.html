@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us –  Travel smart | Get in Touch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    
+    :root {
+      --green: #1a8c3e;
+      --green-dark: #136b2f;
+      --green-accent: #22a84e;
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 2px 8px rgba(26,140,62,0.10);
+      --shadow-md: 0 8px 32px rgba(26,140,62,0.15);
+      --shadow-lg: 0 20px 60px rgba(26,140,62,0.18);
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --bg-secondary: #f8fafb; --bg-card: #ffffff;
+      --text: #1e2e26; --text-muted: #4a6155; --border: #c5d5cb;
+      --nav-bg: #ffffff; --nav-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --input-bg: #ffffff; --green-light: #e8f5ed;
+    }
+    [data-theme="dark"] {
+      --bg: #0f1a13; --bg-secondary: #162019; --bg-card: #1a2b1f;
+      --text: #e8f5ed; --text-muted: #8ab89a; --border: #2e4a38;
+      --nav-bg: #111d15; --nav-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      --input-bg: #1e2f23; --green-light: #1a2e22;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+
+    
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg); display: flex; align-items: center;
+      justify-content: space-between; padding: 0 5%; height: 66px;
+      box-shadow: var(--nav-shadow); transition: background 0.3s;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.3rem;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 38px; height: 38px; background: var(--green);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
+    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      color: var(--text-muted); transition: color 0.2s; position: relative;
+    }
+    .nav-links a.active, .nav-links a:hover { color: var(--green); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--green); border-radius: 2px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+
+    
+    .theme-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--green-light); border: 1.5px solid var(--border);
+      border-radius: 100px; padding: 5px 12px;
+      cursor: pointer; transition: background 0.3s;
+      font-size: 0.8rem; font-weight: 600; color: var(--text-muted);
+    }
+    .theme-toggle:hover { border-color: var(--green); }
+    .toggle-track {
+      width: 36px; height: 20px; background: var(--border);
+      border-radius: 100px; position: relative; transition: background 0.3s;
+    }
+    [data-theme="dark"] .toggle-track { background: var(--green); }
+    .toggle-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: white; transition: transform 0.3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    [data-theme="dark"] .toggle-thumb { transform: translateX(16px); }
+
+    
+    footer { background: #0a1410; color: rgba(255,255,255,0.7); padding: 50px 5% 28px; margin-top: 60px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .nav-logo { color: white; margin-bottom: 14px; display: inline-flex; }
+    .footer-brand p { font-size: 0.87rem; line-height: 1.7; max-width: 230px; }
+    .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; color: white; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--green-accent); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
+    .footer-bottom span { color: var(--green-accent); font-weight: 600; }
+
+    
+    .contact-hero {
+      margin-top: 66px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      padding: 80px 5%;
+      text-align: center;
+      color: white;
+    }
+    .contact-hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .contact-hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .contact-container {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .contact-info {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--border);
+    }
+    .contact-info h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      color: var(--green);
+    }
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--green-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .info-text h4 {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .info-text p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .contact-form {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--border);
+    }
+    .contact-form h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--green);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--input-bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(26,140,62,0.1);
+    }
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.8rem;
+      margin-top: 4px;
+      display: none;
+    }
+    .submit-btn {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      width: 100%;
+    }
+    .submit-btn:hover {
+      background: var(--green-dark);
+      transform: translateY(-2px);
+    }
+   
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 32px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+      animation: fadeInUp 0.3s ease;
+      border: 1px solid var(--border);
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    .modal-content h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+    }
+    .modal-content p {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+    .modal-close {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .modal-close:hover {
+      background: var(--green-dark);
+    }
+    @media (max-width: 900px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 750px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .contact-hero h1 { font-size: 2rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    
+    Travel smart
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="Routes.html">Routes</a></li>
+    <li><a href="Gallery.html">Gallery</a></li>
+    <li><a href="Contact.html" class="active">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+      <span id="theme-label">☀️ Light</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    </button>
+  </div>
+</nav>
+
+
+<div class="contact-hero">
+  <h1>Get in Touch</h1>
+  <p>We'd love to hear from you. Reach out with any questions or feedback.</p>
+</div>
+
+<div class="contact-container">
+  
+  <div class="contact-info">
+    <h2>Contact Information</h2>
+    <div class="info-item">
+      
+      <div class="info-text">
+        <h4>Visit Us</h4>
+        <p>KG 123 St, Kigali, Rwanda</p>
+      </div>
+    </div>
+    <div class="info-item">
+      
+      <div class="info-text">
+        <h4>Call Us</h4>
+        <p>+250 788 123 456<br>+250 788 123 457</p>
+      </div>
+    </div>
+    <div class="info-item">
+      
+      <div class="info-text">
+        <h4>Email Us</h4>
+        <p>@Travel smart.rw<br>support@Travel smart.rw</p>
+      </div>
+    </div>
+    <div class="info-item">
+      
+      <div class="info-text">
+        <h4>Working Hours</h4>
+        <p>Monday - Friday: 7:00 AM - 8:00 PM<br>Saturday - Sunday: 8:00 AM - 6:00 PM</p>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="contact-form">
+    <h2>Send us a Message</h2>
+    <form id="contactForm">
+      <div class="form-group">
+        <label for="name">Full Name *</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name">
+        <div class="error-message" id="nameError">Please enter your full name</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com">
+        <div class="error-message" id="emailError">Please enter a valid email address</div>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" placeholder="078 000 0000">
+        <div class="error-message" id="phoneError">Please enter a valid phone number (10 digits)</div>
+      </div>
+      <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="5" placeholder="How can we help you?"></textarea>
+        <div class="error-message" id="messageError">Please enter your message</div>
+      </div>
+      <button type="submit" class="submit-btn">Send Message →</button>
+    </form>
+  </div>
+</div>
+
+
+<div id="successModal" class="modal">
+  <div class="modal-content">
+   
+    <h3>Message Sent!</h3>
+    <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
+    <button class="modal-close" onclick="closeModal()">OK</button>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:white;"><path d="M3 11h18M5 17h14M6 3h12a2 2 0 012 2v13a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zM9 17v2m6-2v2M3 11V8l3-5h12l3 5v3"/></svg></div>Travel smart</a>
+      <p>Your fastest way to book bus tickets across Rwanda. Travel smart, travel safe.</p>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Bus Booking</a></li><li><a href="routes.html">Routes</a></li><li><a href="#">Group Travel</a></li><li><a href="#">Corporate</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="contact.html">Help Center</a></li><li><a href="contact.html">Contact Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span>Travel smart</span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    const label = document.getElementById('theme-label');
+    if (label) label.textContent = newTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+
+  
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const label = document.getElementById('theme-label');
+      if (label) label.textContent = savedTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+    }
+  })();
+
+  
+  const form = document.getElementById('contactForm');
+  const modal = document.getElementById('successModal');
+
+  function validateName() {
+    const name = document.getElementById('name').value.trim();
+    const error = document.getElementById('nameError');
+    if (name === '') {
+      error.style.display = 'block';
+      return false;
+    }
+    error.style.display = 'none';
+    return true;
+  }
+
+  function validateEmail() {
+    const email = document.getElementById('email').value.trim();
+    const error = document.getElementById('emailError');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email === '' || !emailPattern.test(email)) {
+      error.style.display = 'block';
+      return false;
+    }
+    error.style.display = 'none';
+    return true;
+  }
+
+  function validatePhone() {
+    const phone = document.getElementById('phone').value.trim();
+    const error = document.getElementById('phoneError');
+    const phonePattern = /^[0-9]{10}$/;  // exactly 10 digits
+    if (phone === '' || !phonePattern.test(phone)) {
+      error.style.display = 'block';
+      return false;
+    }
+    error.style.display = 'none';
+    return true;
+  }
+
+  function validateMessage() {
+    const message = document.getElementById('message').value.trim();
+    const error = document.getElementById('messageError');
+    if (message === '') {
+      error.style.display = 'block';
+      return false;
+    }
+    error.style.display = 'none';
+    return true;
+  }
+
+  function showModal() {
+    modal.style.display = 'flex';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    form.reset();
+  }
+
+  
+  window.onclick = function(event) {
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const isNameValid = validateName();
+    const isEmailValid = validateEmail();
+    const isPhoneValid = validatePhone();
+    const isMessageValid = validateMessage();
+    
+    if (isNameValid && isEmailValid && isPhoneValid && isMessageValid) {
+      showModal();
+    }
+  });
+
+ 
+  document.getElementById('name').addEventListener('input', validateName);
+  document.getElementById('email').addEventListener('input', validateEmail);
+  document.getElementById('phone').addEventListener('input', validatePhone);
+  document.getElementById('message').addEventListener('input', validateMessage);
+</script>
+</body>
+</html>

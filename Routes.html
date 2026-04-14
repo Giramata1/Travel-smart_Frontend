@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bus Routes –  Travel smart | Rwanda Bus Schedules</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+   
+    :root {
+      --green: #1a8c3e;
+      --green-dark: #136b2f;
+      --green-accent: #22a84e;
+      --radius: 14px;
+      --radius-sm: 8px;
+      --shadow-sm: 0 2px 8px rgba(26,140,62,0.10);
+      --shadow-md: 0 8px 32px rgba(26,140,62,0.15);
+      --shadow-lg: 0 20px 60px rgba(26,140,62,0.18);
+    }
+    [data-theme="light"] {
+      --bg: #ffffff; --bg-secondary: #f8fafb; --bg-card: #ffffff;
+      --text: #1e2e26; --text-muted: #4a6155; --border: #c5d5cb;
+      --nav-bg: #ffffff; --nav-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      --input-bg: #ffffff; --green-light: #e8f5ed;
+    }
+    [data-theme="dark"] {
+      --bg: #0f1a13; --bg-secondary: #162019; --bg-card: #1a2b1f;
+      --text: #e8f5ed; --text-muted: #8ab89a; --border: #2e4a38;
+      --nav-bg: #111d15; --nav-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      --input-bg: #1e2f23; --green-light: #1a2e22;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+
+    
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg); display: flex; align-items: center;
+      justify-content: space-between; padding: 0 5%; height: 66px;
+      box-shadow: var(--nav-shadow); transition: background 0.3s;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Sora', sans-serif; font-weight: 800; font-size: 1.3rem;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 38px; height: 38px; background: var(--green);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
+    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      color: var(--text-muted); transition: color 0.2s; position: relative;
+    }
+    .nav-links a.active, .nav-links a:hover { color: var(--green); }
+    .nav-links a.active::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--green); border-radius: 2px;
+    }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+
+   
+    .theme-toggle {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--green-light); border: 1.5px solid var(--border);
+      border-radius: 100px; padding: 5px 12px;
+      cursor: pointer; transition: background 0.3s;
+      font-size: 0.8rem; font-weight: 600; color: var(--text-muted);
+    }
+    .theme-toggle:hover { border-color: var(--green); }
+    .toggle-track {
+      width: 36px; height: 20px; background: var(--border);
+      border-radius: 100px; position: relative; transition: background 0.3s;
+    }
+    [data-theme="dark"] .toggle-track { background: var(--green); }
+    .toggle-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: white; transition: transform 0.3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    [data-theme="dark"] .toggle-thumb { transform: translateX(16px); }
+
+    
+    footer { background: #0a1410; color: rgba(255,255,255,0.7); padding: 50px 5% 28px; margin-top: 60px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    .footer-brand .nav-logo { color: white; margin-bottom: 14px; display: inline-flex; }
+    .footer-brand p { font-size: 0.87rem; line-height: 1.7; max-width: 230px; }
+    .footer-col h4 { font-family: 'Sora', sans-serif; font-size: 0.92rem; font-weight: 700; color: white; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.87rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--green-accent); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
+    .footer-bottom span { color: var(--green-accent); font-weight: 600; }
+
+  
+    .routes-hero {
+      margin-top: 66px;
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      padding: 80px 5%;
+      text-align: center;
+      color: white;
+    }
+    .routes-hero h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .routes-hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    .routes-container {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 5%;
+    }
+    .route-category {
+      margin-bottom: 48px;
+    }
+    .route-category h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.6rem;
+      color: var(--green);
+      margin-bottom: 24px;
+      border-left: 4px solid var(--green);
+      padding-left: 16px;
+    }
+    .route-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .route-table th {
+      background: var(--green);
+      color: white;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .route-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .route-table tr:last-child td {
+      border-bottom: none;
+    }
+    .route-table tr:hover {
+      background: var(--green-light);
+    }
+    .badge {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .book-link {
+      background: var(--green);
+      color: white;
+      padding: 6px 16px;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: background 0.2s;
+      display: inline-block;
+    }
+    .book-link:hover {
+      background: var(--green-dark);
+    }
+    .note {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    @media (max-width: 750px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .routes-hero h1 { font-size: 2rem; }
+      .route-table th, .route-table td {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+      }
+      .book-link { padding: 4px 10px; font-size: 0.7rem; }
+    }
+    @media (max-width: 560px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .route-table { font-size: 0.7rem; }
+      .route-table th, .route-table td { padding: 6px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    
+    Travel smart
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="Routes.html" class="active">Routes</a></li>
+    <li><a href="Gallery.html">Gallery</a></li>
+    <li><a href="Contact.html">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">
+      <span id="theme-label">☀️ Light</span>
+      <div class="toggle-track"><div class="toggle-thumb"></div></div>
+    </button>
+  </div>
+</nav>
+
+
+<div class="routes-hero">
+  <h1>Our Bus Routes</h1>
+  <p>Explore destinations across Rwanda with frequent departures and affordable fares</p>
+</div>
+
+<div class="routes-container">
+  <!-- Popular Routes -->
+  <div class="route-category">
+    <h2> Popular Routes</h2>
+    <table class="route-table">
+      <thead>
+        <tr><th>From</th><th>To</th><th>Departure Times</th><th>Duration</th><th>Price (RWF)</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Kigali</td><td>Musanze</td><td>06:00, 08:00, 10:00, 12:00, 14:00, 16:00</td><td>2h 30m</td><td>5,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Kigali</td><td>Huye</td><td>07:00, 09:00, 11:00, 13:00, 15:00, 17:00</td><td>2h 45m</td><td>4,500</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Kigali</td><td>Rubavu (Gisenyi)</td><td>06:30, 08:30, 10:30, 12:30, 14:30, 16:30</td><td>3h 00m</td><td>6,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Kigali</td><td>Nyagatare</td><td>07:30, 09:30, 11:30, 13:30, 15:30</td><td>3h 15m</td><td>5,500</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Kigali</td><td>Rusizi (Cyangugu)</td><td>05:00, 07:00, 09:00, 11:00, 13:00</td><td>5h 00m</td><td>8,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="route-category">
+    <h2>Inter-City Connections</h2>
+    <table class="route-table">
+      <thead>
+        <tr><th>From</th><th>To</th><th>Departure Times</th><th>Duration</th><th>Price (RWF)</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Musanze</td><td>Huye</td><td>07:00, 10:00, 13:00, 16:00</td><td>4h 00m</td><td>7,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Musanze</td><td>Rubavu</td><td>08:00, 11:00, 14:00, 17:00</td><td>2h 15m</td><td>4,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Huye</td><td>Rubavu</td><td>06:00, 09:00, 12:00, 15:00</td><td>4h 30m</td><td>8,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Huye</td><td>Nyagatare</td><td>07:30, 10:30, 13:30</td><td>5h 00m</td><td>9,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Rubavu</td><td>Nyagatare</td><td>08:00, 12:00, 16:00</td><td>4h 00m</td><td>7,500</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  
+  <div class="route-category">
+    <h2> Express & VIP Services</h2>
+    <table class="route-table">
+      <thead>
+        <tr><th>From</th><th>To</th><th>Departure Times</th><th>Duration</th><th>Price (RWF)</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Kigali</td><td>Musanze (Express)</td><td>07:00, 13:00, 17:00</td><td>2h 00m</td><td>7,000</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Kigali</td><td>Huye (VIP)</td><td>08:00, 14:00</td><td>2h 15m</td><td>6,500</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+        <tr><td>Kigali</td><td>Rubavu (Executive)</td><td>06:00, 12:00, 18:00</td><td>2h 30m</td><td>8,500</td><td><a href="index.html" class="book-link">Book</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    
+    <p style="margin-top: 16px;"> Please arrive 30 minutes before departure.</p>
+  </div>
+</div>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" href="index.html"><div class="nav-logo-icon"><svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:white;"><path d="M3 11h18M5 17h14M6 3h12a2 2 0 012 2v13a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2zM9 17v2m6-2v2M3 11V8l3-5h12l3 5v3"/></svg></div>Travel smart</a>
+      <p>Your fastest way to book bus tickets across Rwanda. Travel smart, travel safe.</p>
+    </div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="services.html">Bus Booking</a></li><li><a href="routes.html">Routes</a></li><li><a href="#">Group Travel</a></li><li><a href="#">Corporate</a></li></ul></div>
+    <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Help Center</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 <span>Travel smart</span>. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    const label = document.getElementById('theme-label');
+    if (label) label.textContent = newTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+  }
+
+  
+  (function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const label = document.getElementById('theme-label');
+      if (label) label.textContent = savedTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+    }
+  })();
+</script>
+</body>
+</html>
