@@ -2,8 +2,8 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title> Travel smart – Book Bus Tickets Across Rwanda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <title>Travel smart – Book Bus Tickets Across Rwanda</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
     :root {
@@ -31,9 +31,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; transition: background 0.3s, color 0.3s; }
 
-  
+    /* NAVIGATION */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       background: var(--nav-bg); display: flex; align-items: center;
       justify-content: space-between; padding: 0 5%; height: 66px;
       box-shadow: var(--nav-shadow); transition: background 0.3s;
@@ -48,7 +48,12 @@
       border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
     }
     .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
-    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
     .nav-links a {
       text-decoration: none; font-size: 0.9rem; font-weight: 500;
       color: var(--text-muted); transition: color 0.2s; position: relative;
@@ -58,9 +63,31 @@
       content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
       height: 2px; background: var(--green); border-radius: 2px;
     }
-    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-   
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .hamburger span {
+      width: 100%;
+      height: 3px;
+      background: var(--text);
+      border-radius: 3px;
+      transition: 0.2s;
+    }
+
+    
     .theme-toggle {
       display: flex; align-items: center; gap: 6px;
       background: var(--green-light); border: 1.5px solid var(--border);
@@ -82,18 +109,48 @@
     }
     [data-theme="dark"] .toggle-thumb { transform: translateX(16px); }
 
-    .nav-cta {
-      background: var(--green); color: white; padding: 9px 20px;
-      border-radius: var(--radius-sm); font-weight: 600; font-size: 0.9rem;
-      text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap;
+    
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-links {
+        position: fixed;
+        top: 66px;
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - 66px);
+        background: var(--nav-bg);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 25px;
+        gap: 24px;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+        z-index: 999;
+      }
+      .nav-links.active {
+        left: 0;
+      }
+      .nav-links li {
+        width: 100%;
+      }
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+        font-size: 1.05rem;
+      }
+      .nav-links a.active::after {
+        display: none;
+      }
     }
-    .nav-cta:hover { background: var(--green-dark); transform: translateY(-1px); }
 
-   
+    
     .page { display: none; }
     .page.active { display: block; }
 
-  
+   
     .hero {
       margin-top: 66px; position: relative; height: 520px; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
@@ -157,7 +214,7 @@
     }
     .search-btn:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,140,62,0.36); }
 
-   
+    
     .steps-bar {
       position: sticky; top: 66px; z-index: 50;
       display: flex; align-items: center; justify-content: center;
@@ -235,7 +292,7 @@
     .seat.booked { background: var(--border); border-color: var(--border); color: var(--text-muted); cursor: not-allowed; }
     .seat.booked:hover { transform: none; }
 
-    
+   
     .summary-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 24px; position: sticky; top: 120px; transition: background 0.3s; }
     .summary-card h3 { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1.5px solid var(--border); }
     .summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.85rem; }
@@ -264,7 +321,7 @@
     .form-group input, .form-group select { border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 11px 14px; font-size: 0.93rem; font-family: 'Inter', sans-serif; color: var(--text); background: var(--input-bg); outline: none; transition: border-color 0.2s, box-shadow 0.2s, background 0.3s; }
     .form-group input:focus, .form-group select:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,140,62,0.12); }
 
-    
+   
     .payment-section { padding: 40px 5%; }
     .payment-grid { display: grid; grid-template-columns: 1fr 300px; gap: 28px; align-items: start; margin-top: 24px; }
     .payment-card { background: var(--bg-card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 28px; transition: background 0.3s; }
@@ -275,7 +332,7 @@
     .pay-method.active, .pay-method:hover { border-color: var(--green); background: var(--green-light); color: var(--green); }
     .pay-fields { display: flex; flex-direction: column; gap: 14px; }
 
-  
+    
     .confirm-section { padding: 80px 5%; display: flex; flex-direction: column; align-items: center; text-align: center; }
     .confirm-icon { width: 88px; height: 88px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; animation: pop 0.5s ease; }
     @keyframes pop { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
@@ -293,7 +350,7 @@
     .home-btn { background: var(--green); color: white; border: none; border-radius: var(--radius-sm); padding: 14px 40px; font-size: 1rem; font-weight: 700; font-family: 'Sora', sans-serif; cursor: pointer; transition: background 0.2s; box-shadow: 0 4px 16px rgba(26,140,62,0.28); }
     .home-btn:hover { background: var(--green-dark); }
 
-    
+    /* HOME SECTIONS */
     .section { padding: 60px 5%; }
     .section-title { font-family: 'Sora', sans-serif; font-size: 1.7rem; font-weight: 800; margin-bottom: 26px; color: var(--text); }
     .routes-grid { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -322,20 +379,33 @@
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
     .footer-bottom span { color: var(--green-accent); font-weight: 600; }
 
-    @media (max-width: 900px) { .seat-layout-wrapper, .details-grid, .payment-grid { grid-template-columns: 1fr; } .summary-card { position: static; } }
-    @media (max-width: 750px) { .booking-fields { grid-template-columns: 1fr 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; } .bus-card { flex-direction: column; } }
-    @media (max-width: 560px) { .booking-fields { grid-template-columns: 1fr; } .booking-card { padding: 22px 16px 26px; } .footer-grid { grid-template-columns: 1fr; } .nav-links { display: none; } .step { padding: 12px 8px; font-size: 0.7rem; } .step-sep { width: 10px; } }
+   
+    @media (max-width: 900px) {
+      .seat-layout-wrapper, .details-grid, .payment-grid { grid-template-columns: 1fr; }
+      .summary-card { position: static; }
+    }
+    @media (max-width: 750px) {
+      .booking-fields { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .bus-card { flex-direction: column; }
+    }
+    @media (max-width: 560px) {
+      .booking-fields { grid-template-columns: 1fr; }
+      .booking-card { padding: 22px 16px 26px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .step { padding: 12px 8px; font-size: 0.7rem; }
+      .step-sep { width: 10px; }
+    }
   </style>
 </head>
 <body>
 
-
 <nav>
   <a class="nav-logo" href="#" onclick="return showHome()">
-   
+    
     Travel smart
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html" class="active" onclick="return showHome()">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="services.html">Services</a></li>
@@ -348,10 +418,15 @@
       <span id="theme-label">☀️ Light</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
     </button>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 </nav>
 
-
+<!-- ══ HOME PAGE ══ -->
 <div id="page-home" class="page active">
   <section class="hero">
     <div class="hero-bg"></div>
@@ -433,7 +508,7 @@
   </footer>
 </div>
 
-
+<!-- ══ RESULTS PAGE ══ -->
 <div id="page-results" class="page">
   <div class="steps-bar">
     <div class="step active"><div class="step-num">1</div>Choose Bus</div><div class="step-sep"></div>
@@ -450,7 +525,7 @@
   </div>
 </div>
 
-
+<!-- ══ SEATS PAGE ══ -->
 <div id="page-seats" class="page">
   <div class="steps-bar">
     <div class="step done"><div class="step-num">✓</div>Choose Bus</div><div class="step-sep"></div>
@@ -494,7 +569,7 @@
   </div>
 </div>
 
-
+<!-- ══ PASSENGER DETAILS PAGE ══ -->
 <div id="page-details" class="page">
   <div class="steps-bar">
     <div class="step done"><div class="step-num">✓</div>Choose Bus</div><div class="step-sep"></div>
@@ -530,7 +605,7 @@
   </div>
 </div>
 
-
+<!-- ══ PAYMENT PAGE ══ -->
 <div id="page-payment" class="page">
   <div class="steps-bar">
     <div class="step done"><div class="step-num">✓</div>Choose Bus</div><div class="step-sep"></div>
@@ -585,11 +660,11 @@
   </div>
 </div>
 
-
+<!-- ══ CONFIRMATION PAGE ══ -->
 <div id="page-confirm" class="page">
   <div class="confirm-section">
     <div class="confirm-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
-    <h2>Booking Confirmed! </h2>
+    <h2>Booking Confirmed!</h2>
     <p>Your ticket has been booked successfully. A confirmation SMS will be sent to your phone. Safe travels!</p>
     <div class="ticket-card">
       <div class="ticket-header">
@@ -610,7 +685,7 @@
 </div>
 
 <script>
- 
+  // ── STATE ──
   const state = { from:'Kigali', to:'Musanze', date:'2026-04-20', passengers:1, selectedBus:null, selectedSeats:[], pricePerSeat:0 };
 
   const buses = [
@@ -622,7 +697,7 @@
   ];
   const bookedSeats = { 1:[3,7,12,15,22], 2:[1,5,9,14,18,23,28], 3:[2,6,10,11,20], 4:[4,8,13,16,21,25,30,32], 5:[3,9,17,24] };
 
-  
+  // ── THEME PERSISTENCE ──
   function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.getAttribute('data-theme') === 'dark';
@@ -642,22 +717,22 @@
     }
   })();
 
-  
+  // ── NAVIGATION ──
   function showHome() { showPage('home'); window.scrollTo({ top:0, behavior:'smooth' }); return false; }
-  function scrollToBook() { showPage('home'); setTimeout(() => document.getElementById('booking-card').scrollIntoView({ behavior:'smooth' }), 100); return false; }
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + name).classList.add('active');
+    const target = document.getElementById('page-' + name);
+    if (target) target.classList.add('active');
     window.scrollTo({ top:0, behavior:'smooth' });
   }
 
- 
+  // ── PASSENGER TOGGLE ──
   function selectPass(btn, n) {
     document.querySelectorAll('.pass-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active'); state.passengers = n;
   }
 
-  
+  // ── QUICK ROUTE ──
   function quickRoute(from, to) {
     document.getElementById('from-city').value = from;
     document.getElementById('to-city').value = to;
@@ -665,7 +740,7 @@
     searchBuses();
   }
 
- 
+  // ── SEARCH BUSES ──
   function searchBuses() {
     state.from = document.getElementById('from-city').value;
     state.to = document.getElementById('to-city').value;
@@ -675,8 +750,7 @@
 
     document.getElementById('results-title').textContent = `${state.from} → ${state.to}`;
     const d = new Date(state.date);
-    document.getElementById('results-sub').textContent =
-      `${d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short',year:'numeric'})} · ${state.passengers} Passenger${state.passengers>1?'s':''}`;
+    document.getElementById('results-sub').textContent = `${d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short',year:'numeric'})} · ${state.passengers} Passenger${state.passengers>1?'s':''}`;
     renderBusList();
     showPage('results');
   }
@@ -699,7 +773,7 @@
       </div>`).join('');
   }
 
-  
+  // ── SELECT BUS → SEATS ──
   function selectBus(id) {
     state.selectedBus = buses.find(b => b.id === id);
     state.selectedSeats = [];
@@ -757,7 +831,7 @@
     document.getElementById('proceed-seats-btn').disabled = state.selectedSeats.length !== state.passengers;
   }
 
- 
+  // ── PASSENGER DETAILS ──
   function showPassengerDetails() {
     document.getElementById('passenger-forms').innerHTML = Array.from({length: state.passengers}, (_,i) => `
       <div class="details-form">
@@ -781,7 +855,7 @@
     showPage('details');
   }
 
- 
+  // ── PAYMENT ──
   function showPayment() {
     const total = state.passengers * state.pricePerSeat;
     document.getElementById('pay-route').textContent = `${state.from} → ${state.to}`;
@@ -800,7 +874,7 @@
     document.getElementById('pay-fields-'+type).style.display = 'flex';
   }
 
-  
+  // ── CONFIRMATION ──
   function confirmBooking() {
     const ref = '#GV-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random()*9000);
     const total = state.passengers * state.pricePerSeat + 500;
@@ -815,7 +889,7 @@
     showPage('confirm');
   }
 
-  
+  // Hero dots
   document.querySelectorAll('.hero-dots span').forEach(dot => {
     dot.addEventListener('click', () => {
       document.querySelectorAll('.hero-dots span').forEach(d => d.classList.remove('active'));
@@ -823,7 +897,7 @@
     });
   });
 
-  
+  // Slideshow
   (function() {
     const slideImages = [
       't.png',   
@@ -832,40 +906,44 @@
       'roads3.png',    
       'roads2.png'     
     ];
-
     let currentIndex = 0;
     const heroBg = document.querySelector('.hero-bg');
     if (!heroBg) return;
-
-    
     const bgStyle = window.getComputedStyle(heroBg);
     const bgImage = bgStyle.backgroundImage;
     let gradient = '';
     if (bgImage.includes('linear-gradient')) {
       const parts = bgImage.split(', url(');
-      if (parts.length > 0) {
-        gradient = parts[0];
-      }
+      if (parts.length > 0) gradient = parts[0];
     }
     if (!gradient) {
       gradient = 'linear-gradient(160deg, rgba(10,50,20,0.65) 0%, rgba(26,140,62,0.38) 60%, rgba(0,0,0,0.6) 100%)';
     }
-
     function changeBackground() {
       currentIndex = (currentIndex + 1) % slideImages.length;
       heroBg.style.background = `${gradient}, url('${slideImages[currentIndex]}')`;
       heroBg.style.backgroundSize = 'cover';
       heroBg.style.backgroundPosition = 'center';
     }
-
-    // Set initial background
     heroBg.style.background = `${gradient}, url('${slideImages[0]}')`;
     heroBg.style.backgroundSize = 'cover';
     heroBg.style.backgroundPosition = 'center';
-
-    
     setInterval(changeBackground, 4000);
   })();
+
+  // ── MOBILE HAMBURGER MENU ──
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  }
 </script>
 </body>
 </html>

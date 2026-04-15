@@ -2,11 +2,10 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact Us –  Travel smart | Get in Touch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <title>Contact Us – Travel smart | Get in Touch</title>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    
     :root {
       --green: #1a8c3e;
       --green-dark: #136b2f;
@@ -32,9 +31,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); overflow-x: hidden; transition: background 0.3s, color 0.3s; }
 
-    
+   
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       background: var(--nav-bg); display: flex; align-items: center;
       justify-content: space-between; padding: 0 5%; height: 66px;
       box-shadow: var(--nav-shadow); transition: background 0.3s;
@@ -49,7 +48,12 @@
       border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
     }
     .nav-logo-icon svg { width: 22px; height: 22px; fill: white; }
-    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
     .nav-links a {
       text-decoration: none; font-size: 0.9rem; font-weight: 500;
       color: var(--text-muted); transition: color 0.2s; position: relative;
@@ -59,9 +63,31 @@
       content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
       height: 2px; background: var(--green); border-radius: 2px;
     }
-    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
     
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .hamburger span {
+      width: 100%;
+      height: 3px;
+      background: var(--text);
+      border-radius: 3px;
+      transition: 0.2s;
+    }
+
+   
     .theme-toggle {
       display: flex; align-items: center; gap: 6px;
       background: var(--green-light); border: 1.5px solid var(--border);
@@ -84,6 +110,43 @@
     [data-theme="dark"] .toggle-thumb { transform: translateX(16px); }
 
     
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-links {
+        position: fixed;
+        top: 66px;
+        left: -100%;
+        width: 280px;
+        height: calc(100vh - 66px);
+        background: var(--nav-bg);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 25px;
+        gap: 24px;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.1);
+        z-index: 999;
+      }
+      .nav-links.active {
+        left: 0;
+      }
+      .nav-links li {
+        width: 100%;
+      }
+      .nav-links a {
+        display: block;
+        width: 100%;
+        padding: 8px 0;
+        font-size: 1.05rem;
+      }
+      .nav-links a.active::after {
+        display: none;
+      }
+    }
+
+   
     footer { background: #0a1410; color: rgba(255,255,255,0.7); padding: 50px 5% 28px; margin-top: 60px; }
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
     .footer-brand .nav-logo { color: white; margin-bottom: 14px; display: inline-flex; }
@@ -96,7 +159,7 @@
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
     .footer-bottom span { color: var(--green-accent); font-weight: 600; }
 
-    
+    /* CONTACT PAGE SPECIFIC STYLES */
     .contact-hero {
       margin-top: 66px;
       background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
@@ -291,19 +354,17 @@
     }
     @media (max-width: 560px) {
       .footer-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
-
 
 <nav>
   <a class="nav-logo" href="index.html">
     
     Travel smart
   </a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="services.html">Services</a></li>
@@ -316,9 +377,13 @@
       <span id="theme-label">☀️ Light</span>
       <div class="toggle-track"><div class="toggle-thumb"></div></div>
     </button>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 </nav>
-
 
 <div class="contact-hero">
   <h1>Get in Touch</h1>
@@ -326,7 +391,7 @@
 </div>
 
 <div class="contact-container">
-  
+ 
   <div class="contact-info">
     <h2>Contact Information</h2>
     <div class="info-item">
@@ -337,7 +402,7 @@
       </div>
     </div>
     <div class="info-item">
-      
+    
       <div class="info-text">
         <h4>Call Us</h4>
         <p>+250 788 123 456<br>+250 788 123 457</p>
@@ -347,11 +412,11 @@
       
       <div class="info-text">
         <h4>Email Us</h4>
-        <p>@Travel smart.rw<br>support@Travel smart.rw</p>
+        <p>hello@travelsmart.rw<br>support@travelsmart.rw</p>
       </div>
     </div>
     <div class="info-item">
-      
+      <div class="info-icon"></div>
       <div class="info-text">
         <h4>Working Hours</h4>
         <p>Monday - Friday: 7:00 AM - 8:00 PM<br>Saturday - Sunday: 8:00 AM - 6:00 PM</p>
@@ -388,16 +453,15 @@
   </div>
 </div>
 
-
+<!-- Success Modal -->
 <div id="successModal" class="modal">
   <div class="modal-content">
-   
-    <h3>Message Sent!</h3>
+    
+    <h3>Message Sent</h3>
     <p>Thank you for contacting us. We'll get back to you within 24 hours.</p>
     <button class="modal-close" onclick="closeModal()">OK</button>
   </div>
 </div>
-
 
 <footer>
   <div class="footer-grid">
@@ -415,7 +479,7 @@
 </footer>
 
 <script>
-  
+  // Dark mode persistence
   function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.getAttribute('data-theme') === 'dark';
@@ -426,7 +490,6 @@
     if (label) label.textContent = newTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
   }
 
-  
   (function() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -466,7 +529,7 @@
   function validatePhone() {
     const phone = document.getElementById('phone').value.trim();
     const error = document.getElementById('phoneError');
-    const phonePattern = /^[0-9]{10}$/;  // exactly 10 digits
+    const phonePattern = /^[0-9]{10}$/;
     if (phone === '' || !phonePattern.test(phone)) {
       error.style.display = 'block';
       return false;
@@ -504,22 +567,34 @@
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const isNameValid = validateName();
     const isEmailValid = validateEmail();
     const isPhoneValid = validatePhone();
     const isMessageValid = validateMessage();
-    
     if (isNameValid && isEmailValid && isPhoneValid && isMessageValid) {
       showModal();
     }
   });
 
- 
+  
   document.getElementById('name').addEventListener('input', validateName);
   document.getElementById('email').addEventListener('input', validateEmail);
   document.getElementById('phone').addEventListener('input', validatePhone);
   document.getElementById('message').addEventListener('input', validateMessage);
+
+  
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+  }
 </script>
 </body>
 </html>
